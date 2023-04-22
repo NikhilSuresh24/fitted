@@ -2,6 +2,17 @@ import requests
 import json
 import env
 
+
+class ClothListing:
+  def __init__(self, name, link, price):
+    self.name = name
+    self.link = link
+    self.price = price
+
+# options_hat = [ClothListing(name_i, link[])]
+
+# out = {"hat": options_hat, ...}
+
 # output should be outfits listed in 5 strings
   # isBool, hat/cover, top_item1, top_item2, bottom (?=none), shoes
 #clothing_items = input('ChatGPT Response: ').split(', ')
