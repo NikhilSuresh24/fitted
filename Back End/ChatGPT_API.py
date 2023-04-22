@@ -1,5 +1,5 @@
-import os
 import openai
+import env
 
-openai.api_key = os.getenv('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')
-openai.Model.list()
+openai.api_key = env.OPEN_AI_KEY
+print(openai.Model.list())
