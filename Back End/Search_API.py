@@ -1,5 +1,6 @@
 import requests
 import json
+import env
 
 # output should be outfits listed in 5 strings
   # isBool, hat/cover, top_item1, top_item2, bottom (?=none), shoes
@@ -15,7 +16,7 @@ if(clothing_items[0] == 'Broke'):
   # given name of an item to search for 10 possibilities
 def search_item(isBroke,item_num):
   params = {
-      'api_key': '93194A5623F843C6ADE1B6DEE9125451',
+      'api_key': env.SEARCH_KEY,
       'search_type': 'shopping',
       'page': '1',
       'num': '10',
@@ -25,7 +26,7 @@ def search_item(isBroke,item_num):
     }
   if(isBroke):
     params = {
-      'api_key': '93194A5623F843C6ADE1B6DEE9125451',
+      'api_key': env.SEARCH_KEY,
       'search_type': 'shopping',
       'page': '1',
       'num': '10',
@@ -47,4 +48,7 @@ while (item < (len(clothing_items)-1)):
     print('\nName: ' + str(item_name))
     print('Price: ' + str(item_price))
     print('Link: '   + str(item_link))
+
+  searches_left = (item_data["request_info"])["credits_remaining"]
+  print('\nSearches Left: ' + str(searches_left))
   
