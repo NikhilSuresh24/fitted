@@ -1,7 +1,7 @@
 from flask import Flask, request
 
-from .ChatGPT_API import get_outfit_items
-from .Search_API import search_outfit
+import ChatGPT_API
+import Search_API
 # Initializing flask app
 app = Flask(__name__)
   
@@ -14,8 +14,8 @@ def get_outfits():
     gender = request.args.get("fit")
     style = request.args.get("style")
 
-    items = get_outfit_items(loc, month, gender, style)
-    outfit_info = search_outfit(items)
+    items = ChatGPT_API.get_outfit_items(loc, month, gender, style)
+    outfit_info = Search_API.todo_func(items)
 
     return outfit_info
 
