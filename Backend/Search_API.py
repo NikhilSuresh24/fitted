@@ -1,65 +1,45 @@
 import requests
 import json
 import env
+#import Chat_Search_Interface
 
-
-class ClothListing:
-  def __init__(self, name, link, price):
-    self.name = name
-    self.link = link
+class ClothingListing:
+  def __init__(self, name = '', price = '', link = ''):
+    self.name  = name
     self.price = price
+    self.link  = link
+  def view(self):
+    print("Name: ",  self.name)
+    print("Price: ", self.price)
+    print("Link: ",  self.link)
 
-# options_hat = [ClothListing(name_i, link[])]
-
-# out = {"hat": options_hat, ...}
-
-# output should be outfits listed in 5 strings
-  # isBool, hat/cover, top_item1, top_item2, bottom (?=none), shoes
-#clothing_items = input('ChatGPT Response: ').split(', ')
-clothing_items = ['Broke', 'red hat', 'sweatervest', 'cowboy boots']
-
-# check if user is broke
-broke = False
-if(clothing_items[0] == 'Broke'):
-    broke = True
+input_items = ["hat", "shirt"]
+num_results = 2
+out = {}
 
 # function uses ScaleSerp API to search for clothing
-  # given name of an item to search for 10 possibilities
-def search_item(isBroke,item_num):
+  # given name of an item to search for 3 possibilities
+def search_item(item_name, number_of_results):
   params = {
       'api_key': env.SEARCH_KEY,
       'search_type': 'shopping',
       'page': '1',
-      'num': '10',
+      'num': str(number_of_results),
       'max_page': '1',
-      'location': 'New York City',
-      'q': clothing_items[item_num]
-    }
-  if(isBroke):
-    params = {
-      'api_key': env.SEARCH_KEY,
-      'search_type': 'shopping',
-      'page': '1',
-      'num': '10',
-      'max_page': '1',
-      'location': 'New York City',
-      'q': clothing_items[item_num] + ' cheap'
-    }
+      'location': 'Los Angeles,CA,USA',
+      'gl': 'us',
+      'q': item_name
+  }
   return requests.get('https://api.scaleserp.com/search', params)
 
-# Get name, price, and link of each item
-item = 0
-while (item < (len(clothing_items)-1)):
-  item = item + 1
-  item_data =  search_item(broke,item).json()
-  for i in range(0,9,1):
-    item_name =  ((item_data["shopping_results"])[i])["title"]
-    item_price = ((item_data["shopping_results"])[i])["price_raw"]
-    item_link =  ((item_data["shopping_results"])[i])["link"]
-    print('\nName: ' + str(item_name))
-    print('Price: ' + str(item_price))
-    print('Link: '   + str(item_link))
-
-  searches_left = (item_data["request_info"])["credits_remaining"]
-  print('\nSearches Left: ' + str(searches_left))
-  
+for item in input_items:
+  out[item] = []
+  result_data =  search_item(item,num_results).json()
+  for i in range(0,num_results-1,1):
+    item_name =  ((result_data["shopping_results"])[i])["title"]
+    item_price = ((result_data["shopping_results"])[i])["price_raw"]
+    item_link =  ((result_data["shopping_results"])[i])["link"]
+    out[item].append(ClothingListing(item_name,item_price,item_link))
+    (out[item])[i].view()
+  searches_left = (result_data["request_info"])["credits_remaining"]
+  print('Searches Left: ' + str(searches_left) + '\n')  
