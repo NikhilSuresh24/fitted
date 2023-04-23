@@ -44,7 +44,6 @@ def search_outfit(input_items, num_results = 2):
   for item in input_items:
     out[item] = []
     result_data =  search_item(item,num_results).json()
-    print(result_data)
     for i in range(0,num_results,1):
       item_name =  ((result_data["shopping_results"])[i])["title"]
       item_price = ((result_data["shopping_results"])[i])["price_raw"]
@@ -56,8 +55,6 @@ def search_outfit(input_items, num_results = 2):
       #print('\nSearches Left: ' + str(searches_left))
   return out
 
-input_items = [["hat", "shirt", "jeans"],["sunglasses","sandals"]]
-output_outfits = [search_outfit(input_items[0],3),search_outfit(input_items[1],3)]
-print(output_outfits)
-
-print(((output_outfits[0])["hat"])[0].get_image())
+#input_items = [["hat", "shirt", "jeans"],["sunglasses","sandals"]]
+#output_outfits = [search_outfit(input_items[0],3),search_outfit(input_items[1],3)]
+#print(output_outfits)
