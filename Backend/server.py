@@ -9,6 +9,7 @@ app = Flask(__name__)
 # Route for getting outfit data
 @app.route('/get_outfits')
 def get_outfits():
+    print('got api call')
     loc = request.args.get('location')
     month = request.args.get('month')
     gender = request.args.get("fit")
