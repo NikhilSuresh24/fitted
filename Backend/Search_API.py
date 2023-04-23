@@ -1,27 +1,6 @@
 import requests
 import json
 import env
-#import Chat_Search_Interface
-
-class ClothingListing:
-  def __init__(self, name = '', price = '', link = '', image = ''):
-    self.name  = name
-    self.price = price
-    self.link  = link
-    self.image = image
-  def view(self):
-    print("Name: ",  self.name)
-    print("Price: ", self.price)
-    print("Link: ",  self.link)
-    print("Image: ", self.image)
-  def get_name(self):
-    return(self.name)
-  def get_price(self):
-    return(self.price)
-  def get_link(self):
-    return(self.link)
-  def get_image(self):
-    return(self.image)
 
 # function uses ScaleSerp API to search for clothing
   # given name of an item to search for 3 possibilities
@@ -49,7 +28,10 @@ def search_outfit(input_items, num_results = 2):
       item_price = ((result_data["shopping_results"])[i])["price_raw"]
       item_link =  ((result_data["shopping_results"])[i])["link"]
       item_image = ((result_data["shopping_results"])[i])["image"]
-      out[item].append(ClothingListing(item_name,item_price,item_link,item_image))
+      out[item].append({'name':  item_name,
+                        'price': item_price,
+                        'link':  item_link,
+                        'image': item_image})
       #(out[item])[i].view()
       #searches_left = (result_data["request_info"])["credits_remaining"]
       #print('\nSearches Left: ' + str(searches_left))
