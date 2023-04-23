@@ -40,3 +40,16 @@ def search_outfit(input_items, gend = 'unisex', num_results = 1):
 #input_items = [["hat", "shirt", "jeans"],["sunglasses","sandals"]]
 #output_outfits = [search_outfit(input_items[0],num_results = 3),search_outfit(input_items[1],num_results = 3)]
 #print(output_outfits)
+# given name of an item to search for 3 possibilities
+
+
+def search_all_outfits(outfit_lists, gend = 'unisex', num_results=1):
+    outfit_data = []
+    for outfit in outfit_lists:
+        outfit_data.append(search_outfit(outfit, gend, num_results))
+
+    return outfit_data
+
+# input_items = [["hat", "shirt", "jeans"],["sunglasses","sandals"]]
+# output_outfits = [search_outfit(input_items[0],3),search_outfit(input_items[1],3)]
+# print(output_outfits)
