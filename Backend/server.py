@@ -15,7 +15,7 @@ def get_outfits():
     style = request.args.get("style")
 
     items = ChatGPT_API.get_outfit_items(loc, month, gender, style)
-    outfit_info = Search_API.todo_func(items)
+    outfit_info = Search_API.search_outfit(items,gend = gender)
 
     return outfit_info
 
